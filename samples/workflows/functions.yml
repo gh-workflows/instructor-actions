@@ -1,0 +1,52 @@
+name: Functions Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run a build step
+        run: echo "Building the project..."
+      
+      - name: Set build status
+        run: echo "Build completed successfully"
+        if: success()
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          exit 1  # Simulate a test failure
+
+      - name: Set test status
+        run: echo "Tests failed"
+        if: failure()
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cleanup resources
+        run: echo "Cleaning up resources..."
+        if: always()
+
+      - name: Check if workflow was cancelled
+        run: echo "Workflow was cancelled"
+        if: cancelled()

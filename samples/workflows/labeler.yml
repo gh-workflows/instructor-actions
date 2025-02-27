@@ -1,0 +1,17 @@
+# This setup will automatically label issues based on the keywords specified in the labeler.yml file. 
+# For example, if an issue contains the word "bug" or "error", it will be labeled as a "bug".
+
+bug:
+  - 'bug'
+  - 'error'
+  - 'fail'
+
+enhancement:
+  - 'enhancement'
+  - 'feature'
+  - 'improvement'
+
+documentation:
+  - 'docs'
+  - 'documentation'
+  - 'readme'

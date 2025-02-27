@@ -1,0 +1,56 @@
+# This GitHub Actions workflow disables a specified workflow using a manual dispatch.
+# 
+# Inputs:
+# - workflow_name: A required text box for the user to enter the name of the workflow to disable.
+#
+# Details:
+# - The workflow uses the GitHub CLI (gh) and jq to find and disable the specified workflow.
+# - It includes error handling to echo a message on success or failure.
+#
+# Error handling:
+# - Echo a message on success or failure.
+#
+# Requirements:
+# - Install the GitHub CLI (gh) and jq.
+# - Seet up an environment variable GH_TOKEN with a GitHub token.
+
+name: Disable Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow_name:
+        description: 'Name of the workflow to disable'
+        required: true
+        type: string
+
+jobs:
+  disable-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up GitHub CLI
+      run: sudo apt-get install gh jq
+
+    - name: Disable specified workflow
+      id: disable
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        WORKFLOW_NAME="${{ github.event.inputs.workflow_name }}"
+        WORKFLOW_ID=$(gh api repos/${{ github.repository }}/actions/workflows | jq -r ".workflows[] | select(.name==\"${WORKFLOW_NAME}\") | .id")
+        
+        if [ -z "$WORKFLOW_ID" ]; then
+          echo "Workflow with name '${WORKFLOW_NAME}' not found."
+          exit 1
+        fi
+
+        gh api -X PUT repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/disable
+
+    - name: Echo success message
+      if: success()
+      run: echo "Workflow '${{ github.event.inputs.workflow_name }}' has been successfully disabled."
+
+    - name: Echo failure message
+      if: failure()
+      run: echo "Failed to disable the workflow '${{ github.event.inputs.workflow_name }}'."

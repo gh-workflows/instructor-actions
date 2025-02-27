@@ -1,0 +1,11 @@
+# .github/workflows/caller-workflow.yml
+name: Caller Workflow
+on: [push]
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/callable-workflow.yml@main
+    with:
+      who-to-greet: 'World'
+    secrets:
+      my-secret: ${{ secrets.MY_SECRET }}

@@ -1,0 +1,29 @@
+# This workflow creates a GitHub release when a new tag is pushed to the repository.
+# It uses the GitHub CLI to create the release.
+# As an alternative use https://github.com/softprops/action-gh-release
+
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Matches version tags like v1.0.0, v2.1.3, etc.
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up GitHub CLI
+      uses: actions/setup-gh@v1.0.2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create GitHub Release
+      run: |
+        gh release create ${{ github.ref }} --title "Release ${{ github.ref }}" --notes "Release notes for ${{ github.ref }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

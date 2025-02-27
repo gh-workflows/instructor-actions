@@ -1,0 +1,24 @@
+name: Environments and Secrets
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    
+    environment: dev
+
+    env:
+      Greeting: Welcome
+      PASSKEY: ${{ secrets.PASSKEY }}
+
+    steps:
+    - name: Display Greeting and User
+      run: echo "$Greeting ${{ vars.USER }}"
+
+    - name: Display Passkey
+      run: echo "Here is your passkey $PASSKEY"

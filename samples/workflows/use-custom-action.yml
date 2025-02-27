@@ -1,0 +1,13 @@
+name: Use custom action
+
+# on push or pull request
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup and Test
+        uses: ./.github/actions/setup-and-test
+        with:
+          node-version: '14'

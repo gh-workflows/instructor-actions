@@ -1,0 +1,25 @@
+name: Comment when opened
+on:
+  issues:
+    types:
+      - opened
+      - edited
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      # Add a step to comment on an issue if the type is edited
+      - name: Comment on issue
+        if: github.event_name == 'issues' && github.event.action == 'edited'
+        run: gh issue comment $ISSUE --body "I see you've edited the issue, we'll look into it and get back to you soon"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
+
+      # Add a step to comment on an issue only if the type is opened
+      - name: Comment on issue
+        if: github.event_name == 'issues' && github.event.action == 'opened'
+        run: gh issue comment $ISSUE --body "Received your issue, we'll look into it soon"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}

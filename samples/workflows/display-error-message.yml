@@ -1,0 +1,19 @@
+name: Display Error Message
+
+on: [push]
+
+jobs:
+  display-error:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run a command that might fail
+        run: |
+          echo "Running a command..."
+          exit 1  # Simulating an error
+
+      - name: Display error message
+        if: failure()
+        run: echo "::error::An error occurred during the workflow execution"

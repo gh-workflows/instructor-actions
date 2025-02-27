@@ -1,0 +1,136 @@
+1) Which of the following statements about runners are true: (Choose all that apply)
+a) Runners provide the execution environment for workflow jobs
+b) We have two types of runners; GitHub-hosted and self-hosted
+c) GitHub-hosted runners provide the execution environment as a service and are subject to billing
+d) Self-hosted runners are only available on the GitHub Enterprise Cloud platform
+
+2) GitHub supports which of the following types of manual events: (Choose all that apply)
+a) workflow_dispatch 
+b) api_dispatch
+c) manual_dispatch
+d) repository_dispatch
+e) cli_dispatch
+
+3) Which of the following statements about scheduled events are true: (Choose all that apply)
+a) Only cron syntax is supported
+b) A workflow cannot be scheduled with less than a 5 minute interval
+c) If you use a GitHub hosted runner, we GitHub guarantees execution of the workflow at the exact time specified
+
+4) Which of the following are true regarding workflows and webhook events:  (Choose all that apply)
+a) Webhooks allows you to listen for events in GitHub, and if that event occurs, send a payload with the event details to some endpoint
+b) With GitHub Actions you can define which webhook events you want to listen for to trigger your workflow
+c) An issue event can trigger a workflow
+d) Creating an organization can trigger a workflow
+e) In your workflow you can define multiple events, and you can also filter on specific types
+
+5) Given the following:
+  on:
+    issues:
+      types: [closed, reopened]
+the workflow will only run if an issue is either closed or reopened. It will not trigger if a new issue is created. 
+a) true
+b) false
+
+6) Which of the following are components of GitHub Actions: (choose all that apply)
+a) An event is a specific activity that triggers a workflow
+b) A workflow contains one or more jobs
+c) A job contains one or more steps, each step is an individual task that can execute code
+d) Each step runs in its own process in the runner environment and has access to the workspace and filesystem 
+e) Changes to environment variables are preserved between steps in a job
+
+7) Which of the following statements are true about runners: (choose all that apply)
+a) Each job executes on a runner
+b) Each step in a job executes on the same runner, allowing the actions in that job to share data with each other
+c) Steps in a job execute in sequence
+
+8)  Workflow logs are used to inspect how the workflow executed, and gives verbose output for each job.
+a) true
+b) false
+
+9) If you are writing your own Action, you can be specific about what should be outputted to the logs.
+a) true
+b) false
+
+10) The GITHUB_TOKEN is an automatically generated secret that lets you make authenticated calls to the GitHub API in your workflow runs. A  permissions key supported at the workflow and job level enables you to specify which permissions you want for the token. Any permission that is absent from the list will be set to which of the following: (choose one)
+a) read
+b) write
+c) none
+
+11) An administrator can set the default permissions for the GitHub token in your organization or repository.
+a) true
+b) false
+
+12) Each step in a job can either run a script that you define or run an action.
+a) true
+b) false
+
+13) By default, the jobs in your workflow all run in parallel. If you have a job that must only run after another job has completed, which keyword would create this dependency: (choose one)
+a) requires
+b) needs
+c) synchronize
+d) follows
+
+14) Which strategy can be used to test your code in multiple versions of a language or on multiple operating systems: (choose one)
+a) predicate
+b) matrix
+c) aggregate
+d) multiplex
+
+15) Which of the following statements are true regarding environments: Choose all that apply)
+a) You can configure environments with protection rules and secrets to control the execution of jobs in a workflow. 
+b) Each job in a workflow can reference multiple environments.
+c) Any protection rules configured for the environment must pass before a job referencing the environment is sent to a runner.
+
+16) A workflow will only run on a runner that has all the labels in the runs-on array. 
+a) true
+b) false
+
+17) A reusable workflow can be used by another workflow if both workflows are in the same repository.
+a) true
+b) false
+
+18) A reusable workflow can be used by another workflow if the called workflow is stored in a public repository and your organization allows you to use public reusable workflows.
+a) true
+b) false
+
+19) What is the maximum number of reusable workflows that can be called from a single workflow file? 
+a) 10
+b) 20
+c) 30
+d) There is no limit
+
+Extra Credit:
+
+20) GitHub Actions usage is free for standard GitHub-hosted runners in public repositories, and for self-hosted runners.
+a) true
+b) false
+
+21) Which of the following statements about GitHub Actions caching are true? (Choose all that apply)
+a) Caching can be used to speed up workflow execution by reusing data from previous runs.
+b) The cache key must be unique for each workflow run.
+c) Cache size is limited to 10GB per repository.
+d) Caches are automatically invalidated after 7 days.
+
+22) When using the `jobs.<job_id>.strategy.matrix` feature, which of the following statements are true? (Choose all that apply)
+a) You can define multiple variables to create a matrix of job runs.
+b) The `include` keyword can be used to add additional matrix combinations.
+c) The `exclude` keyword can be used to remove specific matrix combinations.
+d) Matrix jobs always run sequentially.
+
+23) Which of the following are valid ways to trigger a workflow using the `repository_dispatch` event? (Choose all that apply)
+a) Using the GitHub REST API.
+b) Using the GitHub CLI.
+c) Using a webhook from an external service.
+d) Using a manual trigger in the GitHub UI.
+
+24) In GitHub Actions, what is the purpose of the `jobs.<job_id>.container` keyword? (Choose one)
+a) To specify a Docker container to run the job in.
+b) To define a container registry for storing workflow artifacts.
+c) To create a new container for each step in the job.
+d) To limit the job execution to specific containerized environments.
+
+25) Which of the following statements about GitHub Actions secrets are true? (Choose all that apply)
+a) Secrets are encrypted and can be used in workflows to store sensitive information.
+b) Secrets can be accessed directly in the workflow file using the `${{ secrets.SECRET_NAME }}` syntax.
+c) Secrets are automatically masked in the workflow logs.
+d) Secrets can be shared between repositories in the same organization.

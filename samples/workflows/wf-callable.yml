@@ -1,0 +1,20 @@
+# .github/workflows/callable-workflow.yml
+name: Callable Workflow
+on:
+  workflow_call:
+    inputs:
+      who-to-greet:
+        required: true
+        type: string
+    secrets:
+      my-secret:
+        required: true
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet
+        run: echo "Hello ${{ inputs.who-to-greet }}!"
+      - name: Use secret
+        run: echo "My secret is ${{ secrets.my-secret }}"

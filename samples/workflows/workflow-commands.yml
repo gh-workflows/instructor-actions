@@ -1,0 +1,33 @@
+name: Workflow Commands
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set an output variable
+      id: step1
+      run: echo "currentDateTime=$(date)" >> $GITHUB_OUTPUT
+
+    - name: Output the values referenced by the environment variable $GITHUB_OUTPUT
+      run: echo "The current date and time is ${{ steps.step1.outputs.currentDateTime }}"
+
+    - name: Set warning and notice messages
+      id: messages
+      run: |
+        echo "warningMessage=This is a warning message" >> $GITHUB_OUTPUT
+        echo "noticeMessage=This is a notice message" >> $GITHUB_OUTPUT
+
+    - name: Display warnings and notices in a group
+      run: |
+        echo "::group::Warnings and Notices"
+        echo "::warning::${{ steps.messages.outputs.warningMessage }}"
+        echo "::notice::${{ steps.messages.outputs.noticeMessage }}"
+        echo "::endgroup::"
