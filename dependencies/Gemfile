@@ -10,7 +10,7 @@ gem "rubocop", "~> 1.73.1"
 gem "rubocop-github", "~> 0.22.0"
 
 
-gem "rubocop-performance", "~>1.23.0"
+gem "rubocop-performance", "~>1.24.0"
 
 
 gem "rubocop-rails", "~> 2.5"
